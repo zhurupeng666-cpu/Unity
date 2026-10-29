@@ -8,6 +8,7 @@ frontend/dist/
 frontend/test-results/
 frontend/playwright-report/
 *.log
+*.tsbuildinfo
 .env
 .env.local
 unity/Library/
