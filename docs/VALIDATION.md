@@ -23,6 +23,8 @@
 | 手机录屏 | 未执行 |
 | Docker | 配置已提供，未运行 |
 
+GitHub 后端首次检查已通过 Linux `go test -race -cover`、`go vet`、编译和真实 HTTP 重启测试。当前工作流固定 Ubuntu 24.04，最新结果见 [GitHub Actions](https://github.com/zhurupeng666-cpu/Unity/actions)。
+
 ## 检查与修正
 
 1. 初次 Go 测试使用受限运行环境默认临时目录，文件 rename 返回 Access denied。将测试临时目录明确放到仓库忽略的 `work/test-temp` 后，五组测试全部通过。未用删除旧文件的方式回避原子替换。
@@ -33,6 +35,7 @@
 6. 实际运行 `-web` 合并服务时发现静态路由与 API 兜底规则冲突，导致启动 panic。修改根路由注册方式，并新增 `TestStaticWebAndAPICoexist`，六组 Go 测试全部通过。
 7. 首次浏览器测试三项通过，恢复检查因表头缺少明确列语义失败。给 `th` 增加 `scope="col"`，同时让恢复测试自己创建独立记录，重跑四项全部通过。
 8. 从 Unity 官方注册表下载并检查实际 AR Foundation 6.0.8、XR Management 4.5.3、Legacy Input Helpers 2.1.11 包源码，确认版本存在并核对配置 API。XR 配置菜单改为创建/复用正式平台注册资产。此项是源码检查，不等于 Unity 编译或真机验证。
+9. 上传后检查 GitHub Actions：Go 的 Linux race/重启检查已通过，React 构建已通过，但 `ubuntu-latest` 实际解析到 Ubuntu 26.04，超出锁定 Playwright 1.56.1 的支持范围，浏览器安装失败。将两项任务固定为受支持的 Ubuntu 24.04 并重新触发，避免操作系统升级造成检查漂移。
 
 用户已明确回复“暂时没有，先完成源码、测试和上传”。本次交付按此调整范围，不等待真机，不把待验收项记录为通过。
 
