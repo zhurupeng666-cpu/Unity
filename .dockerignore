@@ -1,0 +1,10 @@
+.git
+work
+outputs
+frontend/node_modules
+frontend/dist
+frontend/test-results
+demo
+unity
+backend/data
+backend/*.exe
